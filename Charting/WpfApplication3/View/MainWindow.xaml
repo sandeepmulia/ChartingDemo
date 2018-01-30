@@ -1,0 +1,58 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" x:Class="WpfApplication3.MainWindow"
+        Title="MainWindow" Height="649.284" Width="870.172">
+    <Grid Margin="0,0,29,39">
+        <TabControl HorizontalAlignment="Left" Height="550" Margin="10,20,0,0" VerticalAlignment="Top" Width="823">
+            <TabItem Header="Agriculture Data">
+                <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Height="364" Width="707" ItemsSource="{Binding Commodities}" Margin="10,17,0,0"/>
+            </TabItem>
+            <TabItem Header="Corn Yield">
+                <Grid>
+                <chartingToolkit:Chart Name="Corn" HorizontalAlignment="Left" Margin="10,19,0,0" Title="Corn Harvest Data" VerticalAlignment="Top" Height="211" Width="732" Grid.ColumnSpan="2">
+                        <chartingToolkit:ColumnSeries Title="Harvested Crop in Acres" DependentValuePath="HarvestedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Corn}"/>
+                        <chartingToolkit:ColumnSeries Title="Planted Crop in Acres" DependentValuePath="PlantedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Corn}"/>
+                </chartingToolkit:Chart>
+                    <chartingToolkit:Chart  Name="CornChart" Title="Harvested Corn Yield Per Acre" VerticalAlignment="Top" Margin="10,235,71,0" Height="254">
+                        <chartingToolkit:LineSeries Title="Yield Per Harvested Acre in (million bushels)" DependentValuePath="HarvestedAcreage" IndependentValuePath="YieldPerAcre" ItemsSource="{Binding CornYieldPerAcre}" IsSelectionEnabled="True"/>
+                </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Barley Yield">
+                <Grid>
+                <chartingToolkit:Chart  Name="Barley" Title="Barley Harvest Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,19,0,0" Height="211" Width="732" Grid.Column="1" LegendTitle="Harvest">
+                        <chartingToolkit:ColumnSeries Title="Harvested Crop in Acres" DependentValuePath="HarvestedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Barley}"/>
+                        <chartingToolkit:ColumnSeries Title="Planted Crop in Acres" DependentValuePath="PlantedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Barley}"/>
+                </chartingToolkit:Chart>
+                    <chartingToolkit:Chart  Name="BarleyChart" Title="Harvested Barley Yield Per Acre" VerticalAlignment="Top" Margin="10,235,71,0" Height="254">
+                        <chartingToolkit:LineSeries Title="Yield Per Harvested Acre in (million bushels)"  DependentValuePath="HarvestedAcreage" IndependentValuePath="YieldPerAcre" ItemsSource="{Binding BarleyYieldPerAcre}" IsSelectionEnabled="True"/>
+                </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Oats Yield">
+                <Grid>
+                    <chartingToolkit:Chart  Name="Oats" Title="Oats Harvest Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,19,0,0" Height="211" Width="732" Grid.Column="1">
+                        <chartingToolkit:ColumnSeries Title="Harvested Crop in Acres"  DependentValuePath="HarvestedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Oats}"/>
+                        <chartingToolkit:ColumnSeries Title="Planted Crop in Acres" DependentValuePath="PlantedAcreage" IndependentValuePath="HarvestYear" ItemsSource="{Binding Oats}"/>
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart  Name="OatsChart" Title="Harvested Oats Yield Per Acre" VerticalAlignment="Top" Margin="10,235,71,0" Height="254">
+                        <chartingToolkit:LineSeries  Title="Yield Per Harvested Acre in (million bushels)" DependentValuePath="HarvestedAcreage" IndependentValuePath="YieldPerAcre" ItemsSource="{Binding OatsYieldPerAcre}" IsSelectionEnabled="True"/>
+                    </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Comparison of Production">
+                <Grid>
+                <chartingToolkit:Chart  Name="pieChart" Title="Overall Production Breakup for Year" VerticalAlignment="Top" Margin="30,88,10,0" Height="378">
+                    <chartingToolkit:PieSeries DependentValuePath="Production" IndependentValuePath="CommodityName" ItemsSource="{Binding ProductionBreakUp}"/>
+                </chartingToolkit:Chart>                    
+                    <Label Content="Year" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="30,41,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StatusBar HorizontalAlignment="Left" Height="28" Margin="10,586,-26,-34" VerticalAlignment="Top" Width="849" RenderTransformOrigin="0.48,-0.143">
+            <TextBlock TextWrapping="Wrap" Text="Tip : Hover mouse cursor over graph blocks to view the data values" Width="457"/>
+        </StatusBar>
+    </Grid>
+</Window>
